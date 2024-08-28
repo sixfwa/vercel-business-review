@@ -20,10 +20,7 @@ import { cookies } from "next/headers";
 
 export const ArticleListElement: CmsComponent<
   ArticleListElementDataFragment
-> = async ({
-  data: { articleListCount = 3, showGeoRecommendations = false },
-  contentLink: { locale },
-}) => {
+> = async ({ data: { articleListCount = 3 }, contentLink: { locale } }) => {
   const { factory } = getServerContext();
   const sdk = getSdk();
   const articles = (
@@ -40,8 +37,6 @@ export const ArticleListElement: CmsComponent<
     let recentlyViewed = cookies().get("recent") || [];
     // cookies().set("recent")
   };
-
-  console.log(showGeoRecommendations);
 
   return (
     <div className="flex flex-col gap-5">
