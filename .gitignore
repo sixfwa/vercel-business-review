@@ -49,5 +49,4 @@ next-env.d.ts
 # build-time config
 /src/site-config.ts
 
-dist
 certificates
