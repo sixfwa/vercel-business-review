@@ -1,0 +1,33 @@
+query getFooter {
+  footer: WebsiteFooter(where: { _metadata: { status: { eq: "Published" } } }) {
+    total
+    items {
+      address: FooterMainOfficeLocation {
+        ...OfficeLocationData
+      }
+      firstMenu: FooterFirstLinkList {
+        ...MenuContent
+      }
+      secondMenu: FooterSecondLinkList {
+        ...MenuContent
+      }
+      thirdMenu: FooterThirdLinkList {
+        ...MenuContent
+      }
+      logo: FooterLogo {
+        ...ReferenceData
+      }
+      logoAlt: FooterLogoAltText
+      legal: FooterLegalLinks {
+        ...LinkItemData
+      }
+    }
+  }
+}
+
+fragment MenuContent on NavigationMenuBlockProperty {
+  heading: MenuNavigationHeading
+  links: NavigationLinks {
+    ...LinkItemData
+  }
+}

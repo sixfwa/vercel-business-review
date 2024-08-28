@@ -1,0 +1,32 @@
+query getArticleGroupPageItems($key: String!, $locale: [Locales], $pageSize: Int, $skip: Int) {
+  group: ArticleGroupPage(
+    where: { _metadata: { key: { eq: $key } } }
+    locale: $locale
+  ) {
+    data: items {
+      children: _link(type: ITEMS) {
+        listing: ArticlePage (
+          limit: $pageSize
+          locale: $locale
+          skip: $skip
+          where: { _metadata: { status: { eq: "Published" } } }
+        ) {
+          total
+          items {
+            ...IContentData
+            _metadata {
+              published
+            }
+            articleHeroImage {
+              ...ReferenceData
+            }
+            articleTitle
+            articleSummary {
+              json
+            }
+          }
+        }
+      }
+    }
+  }
+}
