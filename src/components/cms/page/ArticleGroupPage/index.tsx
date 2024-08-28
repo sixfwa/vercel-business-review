@@ -54,7 +54,7 @@ export const ArticleGroupPagePage: CmsComponent<
           return (
             <Card key={item.key} className="h-full">
               <div className="flex flex-col gap-5 border h-full border-black p-5">
-                <h2 className="text-xl font-bold">{item.title}</h2>
+                <h2 className="text-3xl font-bold">{item.title}</h2>
                 <RichText as="div" text={item.intro} />
                 <Button url={url} className="font-bold my-auto">
                   Read More

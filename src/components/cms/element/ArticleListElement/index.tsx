@@ -16,7 +16,6 @@ import { getLabel } from "@/labels";
 import { RichText } from "@remkoj/optimizely-cms-react/components";
 import { getServerContext } from "@remkoj/optimizely-cms-react/rsc";
 import { Card } from "@/components/shared/Card";
-import { cookies } from "next/headers";
 
 export const ArticleListElement: CmsComponent<
   ArticleListElementDataFragment
@@ -32,11 +31,6 @@ export const ArticleListElement: CmsComponent<
     )?.ArticlePage?.items ?? []
   ).filter(isNotNullOrUndefined);
   const andLabel = await getLabel("and", { locale, fallback: "and" });
-
-  const handleArticleClick = (title: string) => {
-    let recentlyViewed = cookies().get("recent") || [];
-    // cookies().set("recent")
-  };
 
   return (
     <div className="flex flex-col gap-5">

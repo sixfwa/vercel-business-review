@@ -9,7 +9,7 @@ export const MainMenu: FunctionComponent<{}> = () => {
       <Link href={"/"} className="font-bold text-3xl tracking-tight opacity-50">
         Vercel Business Review
       </Link>
-      <div className="flex flex-row gap-10 text-lg">
+      <div className="flex flex-row gap-10 text-2xl">
         {menuItems.map((navigationItem) => {
           return (
             <Link
