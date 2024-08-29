@@ -10,4 +10,5 @@ fragment ArticlePageData on ArticlePage {
   articleBody {
     json
   }
+  country
 }

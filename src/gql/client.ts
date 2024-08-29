@@ -271,6 +271,7 @@ export const ArticlePageDataFragmentDoc = /*#__PURE__*/ gql`
   articleBody {
     json
   }
+  country
 }
     `;
 export const PageDataFragmentDoc = /*#__PURE__*/ gql`
@@ -297,16 +298,17 @@ export const getContentTypeDocument = /*#__PURE__*/ gql`
 }
     `;
 export const getArticleListElementItemsDocument = /*#__PURE__*/ gql`
-    query getArticleListElementItems($count: Int, $locale: [Locales]) {
+    query getArticleListElementItems($count: Int, $locale: [Locales], $country: String) {
   ArticlePage(
     orderBy: {_metadata: {published: DESC}}
     limit: $count
     locale: $locale
-    where: {_metadata: {status: {eq: "Published"}}}
+    where: {_metadata: {status: {eq: "Published"}}, country: {eq: $country}}
   ) {
     items {
       ...IContentData
       articleTitle
+      country
       articleMeta: _metadata {
         key
         published
@@ -361,6 +363,7 @@ export const getArticleGroupPageItemsDocument = /*#__PURE__*/ gql`
               ...ReferenceData
             }
             articleTitle
+            country
             articleSummary {
               json
             }

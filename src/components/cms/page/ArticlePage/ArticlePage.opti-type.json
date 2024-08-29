@@ -5,15 +5,8 @@
   "baseType": "page",
   "source": "",
   "sortOrder": 100,
-  "features": [
-    "localization",
-    "versioning",
-    "publishPeriod",
-    "routing"
-  ],
-  "usage": [
-    "instance"
-  ],
+  "features": ["localization", "versioning", "publishPeriod", "routing"],
+  "usage": ["instance"],
   "mayContainTypes": [],
   "mediaFileExtensions": [],
   "created": "2024-05-07T11:33:52.5292802+00:00",
@@ -40,9 +33,7 @@
       "group": "Information",
       "sortOrder": 10,
       "editorSettings": {},
-      "allowedTypes": [
-        "Image"
-      ],
+      "allowedTypes": ["Image"],
       "restrictedTypes": []
     },
     "articleSummary": {
@@ -91,6 +82,17 @@
       "required": false,
       "group": "Information",
       "sortOrder": 40,
+      "editorSettings": {}
+    },
+    "country": {
+      "type": "string",
+      "format": "shortString",
+      "displayName": "country",
+      "description": "",
+      "localized": true,
+      "required": false,
+      "group": "Information",
+      "sortOrder": 50,
       "editorSettings": {}
     }
   }

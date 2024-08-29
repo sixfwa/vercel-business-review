@@ -1,11 +1,16 @@
-query getArticleGroupPageItems($key: String!, $locale: [Locales], $pageSize: Int, $skip: Int) {
+query getArticleGroupPageItems(
+  $key: String!
+  $locale: [Locales]
+  $pageSize: Int
+  $skip: Int
+) {
   group: ArticleGroupPage(
     where: { _metadata: { key: { eq: $key } } }
     locale: $locale
   ) {
     data: items {
       children: _link(type: ITEMS) {
-        listing: ArticlePage (
+        listing: ArticlePage(
           limit: $pageSize
           locale: $locale
           skip: $skip
@@ -21,6 +26,7 @@ query getArticleGroupPageItems($key: String!, $locale: [Locales], $pageSize: Int
               ...ReferenceData
             }
             articleTitle
+            country
             articleSummary {
               json
             }

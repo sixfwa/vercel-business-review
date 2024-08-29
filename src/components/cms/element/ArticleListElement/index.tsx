@@ -10,13 +10,13 @@ import {
   ArticleListElementDataFragmentDoc,
 } from "@/gql/graphql";
 import { getSdk } from "@/sdk";
-import { CmsContentLink } from "@remkoj/optimizely-cms-nextjs/components";
 import DateDisplay from "@/components/shared/date";
 import { getLabel } from "@/labels";
 import { RichText } from "@remkoj/optimizely-cms-react/components";
 import { getServerContext } from "@remkoj/optimizely-cms-react/rsc";
 import { Card } from "@/components/shared/Card";
 import { headers } from "next/headers";
+import Link from "next/link";
 
 export const ArticleListElement: CmsComponent<
   ArticleListElementDataFragment
@@ -33,12 +33,13 @@ export const ArticleListElement: CmsComponent<
       await sdk.getArticleListElementItems({
         count: articleListCount || 3,
         locale: locale as InputMaybe<Locales> | undefined,
+        // country: undefined,
         country: geoCountries ? country : undefined,
       })
     )?.ArticlePage?.items ?? []
   ).filter(isNotNullOrUndefined);
   // console.log(geoCountries ? country : undefined);
-  console.log(articles);
+
   const andLabel = await getLabel("and", { locale, fallback: "and" });
 
   return (
@@ -58,11 +59,12 @@ export const ArticleListElement: CmsComponent<
 
         return (
           <div key={article.articleMeta?.key}>
-            <CmsContentLink href={article}>
+            {/* @ts-ignore */}
+            <Link href={article._metadata?.url.default ?? ""}>
               <Card
                 cardColor="white"
                 as="article"
-                className="flex flex-row border border-black p-5"
+                className="flex flex-row border border-black p-5 min-h-max"
               >
                 <div className="flex flex-col">
                   <DateDisplay value={article.articleMeta?.published ?? null} />
@@ -77,7 +79,7 @@ export const ArticleListElement: CmsComponent<
                   )}
                 </div>
               </Card>
-            </CmsContentLink>
+            </Link>
           </div>
         );
       })}
