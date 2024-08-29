@@ -26,8 +26,8 @@ export const ArticleListElement: CmsComponent<
 }) => {
   const { factory } = getServerContext();
   const sdk = getSdk();
-  // const headersList = headers();
-  const country = headers().get("X-User-Country");
+  const headersList = headers();
+  const country = headersList.get("X-User-Country");
   // const country = headersList.get("X-User-Country");
   const articles = (
     (
@@ -68,7 +68,7 @@ export const ArticleListElement: CmsComponent<
                 <div className="flex flex-col">
                   <DateDisplay value={article.articleMeta?.published ?? null} />
                   <h3 className="mb-5 text-3xl font-bold">
-                    {article?.articleTitle ?? ""}
+                    {article?.articleTitle ?? ""} - {article.country}
                   </h3>
                   {article?.articleSummary && (
                     <RichText
