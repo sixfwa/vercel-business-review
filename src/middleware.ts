@@ -42,30 +42,9 @@ export function middleware(request: NextRequest) {
   );
 
   const country = request.geo?.country || "US";
+  console.log(country);
 
   response.headers.set("X-User-Country", country);
-
-  /*
-    // We're in dev mode when the environment is not production or the host includes localhost
-    const isDev = process.env.NODE_ENV != "production" || request.nextUrl.host.includes("localhost")
-
-    // Make sure we're always in English - multi langauge is not supported yet
-    if (!request.nextUrl.pathname.startsWith("/en")) {
-        const newUrl = request.nextUrl.clone()
-        newUrl.pathname = "/en" + newUrl.pathname
-        return NextResponse.redirect(newUrl, {
-            status: isDev ? 307 : 308
-        })
-    }*/
-
-  /**
-   * Assign a Visitor ID cookie, so we can identify and track individual
-   * visitors
-   */
-  /*const visitorId = Session.getOrCreateVisitorId(request)
-    const response = NextResponse.next()
-    Session.addVisitorId(response, visitorId)
-    return response*/
   return NextResponse.next();
 }
 
