@@ -27,18 +27,16 @@ export const ArticleListElement: CmsComponent<
   const { factory } = getServerContext();
   const sdk = getSdk();
   const headersList = headers();
-  const country = headersList.get("X-User-Country") || "GB";
+  const country = headersList.get("X-User-Country") || "US";
   const articles = (
     (
       await sdk.getArticleListElementItems({
         count: articleListCount || 3,
         locale: locale as InputMaybe<Locales> | undefined,
-        // country: undefined,
         country: geoCountries ? country : undefined,
       })
     )?.ArticlePage?.items ?? []
   ).filter(isNotNullOrUndefined);
-  // console.log(geoCountries ? country : undefined);
 
   const andLabel = await getLabel("and", { locale, fallback: "and" });
 
@@ -64,7 +62,7 @@ export const ArticleListElement: CmsComponent<
               <Card
                 cardColor="white"
                 as="article"
-                className="flex flex-row border border-black p-5 min-h-max"
+                className="flex flex-row border border-black p-5 min-h-max h-64"
               >
                 <div className="flex flex-col">
                   <DateDisplay value={article.articleMeta?.published ?? null} />
