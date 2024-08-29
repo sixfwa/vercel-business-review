@@ -48,7 +48,9 @@ export function middleware(request: NextRequest) {
   response.cookies.set("X-User-Country", country);
   response.headers.set("X-User-Country", country);
   //   response.headers.set("X-User-Country", country);
-  return NextResponse.next();
+  const re = NextResponse.next();
+  re.headers.set("X-User-Country", country);
+  return re;
 }
 
 export const config = {
