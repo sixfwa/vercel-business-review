@@ -15,7 +15,7 @@ import { getLabel } from "@/labels";
 import { RichText } from "@remkoj/optimizely-cms-react/components";
 import { getServerContext } from "@remkoj/optimizely-cms-react/rsc";
 import { Card } from "@/components/shared/Card";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import Link from "next/link";
 
 export const ArticleListElement: CmsComponent<
@@ -26,18 +26,19 @@ export const ArticleListElement: CmsComponent<
 }) => {
   const { factory } = getServerContext();
   const sdk = getSdk();
-  const headersList = headers();
-  const country = headersList.get("X-User-Country") || "US";
+  // const headersList = headers();
+  const country = cookies().get("X-User-Country");
+  // const country = headersList.get("X-User-Country");
   const articles = (
     (
       await sdk.getArticleListElementItems({
         count: articleListCount || 3,
         locale: locale as InputMaybe<Locales> | undefined,
-        country: geoCountries ? country : undefined,
+        country: geoCountries ? country?.value : undefined,
       })
     )?.ArticlePage?.items ?? []
   ).filter(isNotNullOrUndefined);
-  console.log(`The browser country is ${country}`);
+  console.log(`The browser country is ${country?.name}`);
   const andLabel = await getLabel("and", { locale, fallback: "and" });
 
   return (

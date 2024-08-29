@@ -42,10 +42,10 @@ export function middleware(request: NextRequest) {
   );
 
   const country = request.geo?.country || "US";
-  console.log(request.geo?.country);
+  console.log(country);
   console.log("middleware");
-
-  response.headers.set("X-User-Country", country);
+  response.cookies.set("X-User-Country", country);
+  //   response.headers.set("X-User-Country", country);
   return NextResponse.next();
 }
 
