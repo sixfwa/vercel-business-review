@@ -18,26 +18,6 @@ export const DefaultColumn: CmsLayoutComponent<DefaultColumnProps> = ({
     overflow = "full",
   } = extractSettings(layoutProps);
 
-  //   switch (contentSpacing) {
-  //     case "small":
-  //       cssClasses.push("gap-2 py-2");
-  //       break;
-  //     case "medium":
-  //       cssClasses.push("gap-4 py-4");
-  //       break;
-  //     case "large":
-  //       cssClasses.push("gap-8 py-8 lg:gap-8 lg:py-8");
-  //       break;
-  //     case "xl":
-  //       cssClasses.push("gap-12 py-12 lg:gap-24 lg:py-24");
-  //       break;
-  //     case "xxl":
-  //       cssClasses.push("gap-16 py-16 lg:gap-72 lg:py-72");
-  //       break;
-  //     default:
-  //       cssClasses.push("gap-0 py-0");
-  //       break;
-  //   }
 
   switch (justifyContent) {
     case "center":

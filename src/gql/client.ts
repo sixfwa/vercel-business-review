@@ -62,7 +62,8 @@ export const IElementDataFragmentDoc = /*#__PURE__*/ gql`
     `;
 export const ArticleListElementDataFragmentDoc = /*#__PURE__*/ gql`
     fragment ArticleListElementData on ArticleListElement {
-  articleListCount
+  articleListCount: articleListCount
+  geoCountries: geoCountries
 }
     `;
 export const CTAElementDataFragmentDoc = /*#__PURE__*/ gql`

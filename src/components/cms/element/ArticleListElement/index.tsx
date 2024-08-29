@@ -16,20 +16,29 @@ import { getLabel } from "@/labels";
 import { RichText } from "@remkoj/optimizely-cms-react/components";
 import { getServerContext } from "@remkoj/optimizely-cms-react/rsc";
 import { Card } from "@/components/shared/Card";
+import { headers } from "next/headers";
 
 export const ArticleListElement: CmsComponent<
   ArticleListElementDataFragment
-> = async ({ data: { articleListCount = 3 }, contentLink: { locale } }) => {
+> = async ({
+  data: { articleListCount = 3, geoCountries = false },
+  contentLink: { locale },
+}) => {
   const { factory } = getServerContext();
   const sdk = getSdk();
+  const headersList = headers();
+  const country = headersList.get("X-User-Country") || "GB";
   const articles = (
     (
       await sdk.getArticleListElementItems({
         count: articleListCount || 3,
         locale: locale as InputMaybe<Locales> | undefined,
+        country: geoCountries ? country : undefined,
       })
     )?.ArticlePage?.items ?? []
   ).filter(isNotNullOrUndefined);
+  // console.log(geoCountries ? country : undefined);
+  console.log(articles);
   const andLabel = await getLabel("and", { locale, fallback: "and" });
 
   return (
