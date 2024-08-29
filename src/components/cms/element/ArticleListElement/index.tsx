@@ -37,7 +37,7 @@ export const ArticleListElement: CmsComponent<
       })
     )?.ArticlePage?.items ?? []
   ).filter(isNotNullOrUndefined);
-
+  console.log(`The browser country is ${country}`);
   const andLabel = await getLabel("and", { locale, fallback: "and" });
 
   return (
