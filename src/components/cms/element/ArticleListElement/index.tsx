@@ -43,6 +43,7 @@ export const ArticleListElement: CmsComponent<
 
   return (
     <div className="flex flex-col gap-5">
+      {country}
       {articles.map((article) => {
         let authors: string | undefined = undefined;
         const authorList = (article.articleAuthors ?? []).filter(
