@@ -1,7 +1,7 @@
 /*
     This is used on the landing page to show the articles
 **/
-import "server-only";
+
 import { type CmsComponent } from "@remkoj/optimizely-cms-react";
 import {
   type ArticleListElementDataFragment,

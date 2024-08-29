@@ -43,11 +43,6 @@ export function middleware(request: NextRequest) {
     contentSecurityPolicyHeaderValue
   );
 
-  console.log(country);
-  console.log("middleware");
-  response.cookies.set("X-User-Country", country);
-  response.headers.set("X-User-Country", country);
-  //   response.headers.set("X-User-Country", country);
   const re = NextResponse.next();
   re.headers.set("X-User-Country", country);
   return re;
