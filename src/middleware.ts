@@ -43,6 +43,7 @@ export function middleware(request: NextRequest) {
 
   const country = request.geo?.country || "US";
   console.log(country);
+  console.log("middleware");
 
   response.headers.set("X-User-Country", country);
   return NextResponse.next();
