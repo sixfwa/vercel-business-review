@@ -26,24 +26,24 @@ export const ArticleListElement: CmsComponent<
 }) => {
   const { factory } = getServerContext();
   const sdk = getSdk();
-  const headersList = headers();
+  const headersList = cookies();
   const country = headersList.get("X-User-Country");
-  // const country = headersList.get("X-User-Country");
   const articles = (
     (
       await sdk.getArticleListElementItems({
         count: articleListCount || 3,
         locale: locale as InputMaybe<Locales> | undefined,
-        country: geoCountries ? country : undefined,
+        country: geoCountries ? country?.value : undefined,
       })
     )?.ArticlePage?.items ?? []
   ).filter(isNotNullOrUndefined);
   console.log(`The browser country is ${country}`);
+  console.log(`The nonce: ${headers().get("x-nonce")}`);
   const andLabel = await getLabel("and", { locale, fallback: "and" });
 
   return (
     <div className="flex flex-col gap-5">
-      {country}
+      {country?.value}
       {articles.map((article) => {
         let authors: string | undefined = undefined;
         const authorList = (article.articleAuthors ?? []).filter(

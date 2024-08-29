@@ -44,7 +44,7 @@ export function middleware(request: NextRequest) {
   );
 
   const re = NextResponse.next();
-  re.headers.set("X-User-Country", country);
+  re.cookies.set("X-User-Country", country);
   return re;
 }
 
