@@ -1,7 +1,7 @@
 /*
     This is used on the landing page to show the articles
 **/
-
+"use server";
 import { type CmsComponent } from "@remkoj/optimizely-cms-react";
 import {
   type ArticleListElementDataFragment,
@@ -26,8 +26,8 @@ export const ArticleListElement: CmsComponent<
 }) => {
   const { factory } = getServerContext();
   const sdk = getSdk();
-  const headersList = cookies();
-  const country = headersList.get("X-User-Country");
+  const cookieStore = cookies();
+  const country = cookieStore.get("X-User-Country");
   const articles = (
     (
       await sdk.getArticleListElementItems({
@@ -41,9 +41,12 @@ export const ArticleListElement: CmsComponent<
   console.log(`The nonce: ${headers().get("x-nonce")}`);
   const andLabel = await getLabel("and", { locale, fallback: "and" });
 
+  const headersList = headers();
+  const c = headersList.get("x-vercel-ip-country") || "US";
+
   return (
     <div className="flex flex-col gap-5">
-      {country?.value}
+      {c}
       {articles.map((article) => {
         let authors: string | undefined = undefined;
         const authorList = (article.articleAuthors ?? []).filter(
