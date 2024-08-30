@@ -30,6 +30,7 @@ export async function middleware(request: NextRequest) {
     "Content-Security-Policy",
     contentSecurityPolicyHeaderValue
   );
+  requestHeaders.set("x-country", countryCode);
 
   const response = NextResponse.next({
     request: {
@@ -42,9 +43,14 @@ export async function middleware(request: NextRequest) {
     "Content-Security-Policy",
     contentSecurityPolicyHeaderValue
   );
-  console.log("countryCode", countryCode);
-  const res = NextResponse.next();
-  res.cookies.set("country", countryCode);
+
+  const h = new Headers(request.headers);
+  h.set("x-country", countryCode);
+  const res = NextResponse.next({
+    request: {
+      headers: h,
+    },
+  });
   return res;
 }
 

@@ -16,7 +16,7 @@ import { RichText } from "@remkoj/optimizely-cms-react/components";
 import { getServerContext } from "@remkoj/optimizely-cms-react/rsc";
 import { Card } from "@/components/shared/Card";
 import Link from "next/link";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 export const ArticleListElement: CmsComponent<
   ArticleListElementDataFragment
@@ -27,7 +27,7 @@ export const ArticleListElement: CmsComponent<
   const { factory } = getServerContext();
   const sdk = getSdk();
   const headersList = headers();
-  const country = headersList.get("x-vercel-ip-country") || "US";
+  const country = headersList.get("x-country");
   const articles = (
     (
       await sdk.getArticleListElementItems({
@@ -38,6 +38,7 @@ export const ArticleListElement: CmsComponent<
     )?.ArticlePage?.items ?? []
   ).filter(isNotNullOrUndefined);
   const andLabel = await getLabel("and", { locale, fallback: "and" });
+  console.log("country", country);
 
   return (
     <div className="flex flex-col gap-5">
