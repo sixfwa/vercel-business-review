@@ -69,7 +69,7 @@ export const ArticleListElement: CmsComponent<
                 <div className="flex flex-col">
                   <DateDisplay value={article.articleMeta?.published ?? null} />
                   <h3 className="mb-5 text-3xl font-bold">
-                    {article?.articleTitle ?? ""} - {article.country}
+                    {article?.articleTitle ?? ""}
                   </h3>
                   {article?.articleSummary && (
                     <RichText
