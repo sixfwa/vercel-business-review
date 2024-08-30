@@ -1,7 +1,7 @@
 /*
     This is used on the landing page to show the articles
 **/
-"use server";
+import "server-only";
 import { type CmsComponent } from "@remkoj/optimizely-cms-react";
 import {
   type ArticleListElementDataFragment,
@@ -27,7 +27,10 @@ export const ArticleListElement: CmsComponent<
   const { factory } = getServerContext();
   const sdk = getSdk();
   const headersList = headers();
+  const cookiesList = cookies();
   const country = headersList.get("x-country");
+  const countryCookie = cookiesList.get("x-country");
+  console.log("country", country);
   const articles = (
     (
       await sdk.getArticleListElementItems({
@@ -38,7 +41,6 @@ export const ArticleListElement: CmsComponent<
     )?.ArticlePage?.items ?? []
   ).filter(isNotNullOrUndefined);
   const andLabel = await getLabel("and", { locale, fallback: "and" });
-  console.log("country", country);
 
   return (
     <div className="flex flex-col gap-5">

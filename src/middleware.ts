@@ -25,12 +25,12 @@ export async function middleware(request: NextRequest) {
 
   // Make the nonce & policy available to the request
   const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-country", countryCode);
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set(
     "Content-Security-Policy",
     contentSecurityPolicyHeaderValue
   );
-  requestHeaders.set("x-country", countryCode);
 
   const response = NextResponse.next({
     request: {
@@ -45,11 +45,18 @@ export async function middleware(request: NextRequest) {
   );
 
   const h = new Headers(request.headers);
+  console.log("middleware\n");
   h.set("x-country", countryCode);
   const res = NextResponse.next({
     request: {
       headers: h,
     },
+  });
+  res.cookies.set("x-country", countryCode, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/",
   });
   return res;
 }
@@ -65,5 +72,6 @@ export const config = {
     // - /_vercel => Vercel infrastructure routes
     // - /mobile.app => SPA for "installed usage"
     "/((?!.*\\.|ui|api|assets|_next\\/static|_next\\/image|_vercel|mobile\\.app).*)",
+    "/",
   ],
 };
