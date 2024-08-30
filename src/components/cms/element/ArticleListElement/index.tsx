@@ -15,8 +15,8 @@ import { getLabel } from "@/labels";
 import { RichText } from "@remkoj/optimizely-cms-react/components";
 import { getServerContext } from "@remkoj/optimizely-cms-react/rsc";
 import { Card } from "@/components/shared/Card";
-import { cookies, headers } from "next/headers";
 import Link from "next/link";
+import { headers } from "next/headers";
 
 export const ArticleListElement: CmsComponent<
   ArticleListElementDataFragment
@@ -26,27 +26,21 @@ export const ArticleListElement: CmsComponent<
 }) => {
   const { factory } = getServerContext();
   const sdk = getSdk();
-  const cookieStore = cookies();
-  const country = cookieStore.get("X-User-Country");
+  const headersList = headers();
+  const country = headersList.get("x-vercel-ip-country") || "US";
   const articles = (
     (
       await sdk.getArticleListElementItems({
         count: articleListCount || 3,
         locale: locale as InputMaybe<Locales> | undefined,
-        country: geoCountries ? country?.value : undefined,
+        country: geoCountries ? country : undefined,
       })
     )?.ArticlePage?.items ?? []
   ).filter(isNotNullOrUndefined);
-  console.log(`The browser country is ${country}`);
-  console.log(`The nonce: ${headers().get("x-nonce")}`);
   const andLabel = await getLabel("and", { locale, fallback: "and" });
-
-  const headersList = headers();
-  const c = headersList.get("x-vercel-ip-country") || "US";
 
   return (
     <div className="flex flex-col gap-5">
-      {c}
       {articles.map((article) => {
         let authors: string | undefined = undefined;
         const authorList = (article.articleAuthors ?? []).filter(

@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const optimizelyCmsUrl = process.env.OPTIMIZELY_CMS_URL ?? "";
 
   // Add CSP
@@ -21,6 +21,7 @@ export function middleware(request: NextRequest) {
   const contentSecurityPolicyHeaderValue = cspHeader
     .replace(/\s{2,}/g, " ")
     .trim();
+  const countryCode = request.geo?.country || "US";
 
   // Make the nonce & policy available to the request
   const requestHeaders = new Headers(request.headers);
@@ -29,8 +30,7 @@ export function middleware(request: NextRequest) {
     "Content-Security-Policy",
     contentSecurityPolicyHeaderValue
   );
-  const country = request.geo?.country || "US";
-  requestHeaders.set("X-User-Country", country);
+
   const response = NextResponse.next({
     request: {
       headers: requestHeaders,
@@ -42,10 +42,10 @@ export function middleware(request: NextRequest) {
     "Content-Security-Policy",
     contentSecurityPolicyHeaderValue
   );
-
-  const re = NextResponse.next();
-  re.cookies.set("X-User-Country", country);
-  return re;
+  console.log("countryCode", countryCode);
+  const res = NextResponse.next();
+  res.cookies.set("country", countryCode);
+  return res;
 }
 
 export const config = {
