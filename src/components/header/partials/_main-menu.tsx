@@ -6,10 +6,10 @@ export const MainMenu: FunctionComponent<{}> = () => {
   const { menuItems } = useContext(HeaderContext);
   return (
     <nav className="flex flex-row w-full justify-between place-items-center">
-      <Link href={"/"} className="font-bold text-3xl tracking-tight opacity-50">
+      <Link href={"/"} className="font-bold text-xl tracking-tight opacity-50">
         Vercel Business Review
       </Link>
-      <div className="flex flex-row gap-10 text-2xl">
+      <div className="flex flex-row gap-10 text-lg">
         {menuItems.map((navigationItem) => {
           return (
             <Link

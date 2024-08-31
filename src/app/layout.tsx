@@ -1,5 +1,12 @@
 import { type PropsWithChildren } from "react";
 import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
+
+const poppinsFont = Poppins({
+  weight: ["300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  variable: "--font-poppins",
+});
 
 // Components
 import { MoseyBankHeader } from "@/components/header";
@@ -20,11 +27,10 @@ type RootLayoutProps = Readonly<PropsWithChildren<{}>>;
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body>
-        <main className="flex flex-col justify-between w-2/3 mx-auto">
+      <body className={`${poppinsFont.variable}`}>
+        <main className="flex flex-col justify-between w-2/3 mx-auto mb-10 font-poppins">
           <MoseyBankHeader />
           {children}
-          {/* <MoseyBankFooter /> */}
         </main>
       </body>
     </html>

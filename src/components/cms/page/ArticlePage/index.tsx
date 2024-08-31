@@ -55,7 +55,7 @@ export const ArticlePagePage: CmsComponent<ArticlePageDataFragment> = async ({
       </div>
       <div className="outer-padding">
         <div className="mx-auto z-[50] mb-8">
-          <div className="mx-auto prose max-w-screen-xl lg:p-16">
+          <div className="mx-auto prose max-w-screen-xl py-16">
             <CmsEditable as="h1" cmsFieldName="articleTitle">
               {data.articleTitle}
             </CmsEditable>

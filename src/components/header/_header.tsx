@@ -41,11 +41,8 @@ export default function Header({
   utilityItems,
   labels = {},
 }: HeaderProps) {
-  const logoRef = useRef<HTMLDivElement>(null);
-  const secondaryMenuRef = useRef<HTMLUListElement>(null);
   const [currentMenu, setCurrentMenu] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const mouseLeaveTimer = useRef<undefined | NodeJS.Timeout>();
 
   const headerContext = {
     menuItems,
@@ -55,39 +52,10 @@ export default function Header({
     mobileMenuOpen,
   };
 
-  // This will close the dropdown after 500ms of the mouse not being over any header element.
-  function handleMouseLeave() {
-    mouseLeaveTimer.current = setTimeout(() => {
-      setCurrentMenu("");
-    }, 200);
-  }
-
-  // Clears timeout if we detect that the mouse is still over the header
-  function handleMouseEnter() {
-    clearTimeout(mouseLeaveTimer.current);
-  }
-
-  // Checks if the focus leaves the header and closes the dropdown menu if it does.
-  function handleFocusLeave(e: React.FocusEvent<HTMLElement>) {
-    if (
-      (secondaryMenuRef.current &&
-        secondaryMenuRef.current.contains(e.relatedTarget)) ||
-      (logoRef.current && logoRef.current.contains(e.relatedTarget))
-    ) {
-      setCurrentMenu("");
-    }
-  }
-
   return (
     <HeaderContext.Provider value={headerContext}>
-      <header
-        className="outer-padding bg-white"
-        onMouseLeave={handleMouseLeave}
-        onMouseEnter={handleMouseEnter}
-        onBlur={handleFocusLeave}
-      >
-        <div className="py-8 container mx-auto flex items-center w-full justify-between lg:justify-normal">
-          {/* <Logo re/f={logoRef} logoItem={logoItem} darkLogoItem={darkLogoItem} /> */}
+      <header className="bg-white">
+        <div className="py-8 mx-auto flex items-center w-full justify-between lg:justify-normal">
           <div className="lg:hidden">
             <button
               className="btn btn--secondary ml-[10px]"

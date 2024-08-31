@@ -16,7 +16,7 @@ import { RichText } from "@remkoj/optimizely-cms-react/components";
 import { getServerContext } from "@remkoj/optimizely-cms-react/rsc";
 import { Card } from "@/components/shared/Card";
 import Link from "next/link";
-import { cookies, headers } from "next/headers";
+import { headers } from "next/headers";
 
 export const ArticleListElement: CmsComponent<
   ArticleListElementDataFragment
@@ -27,10 +27,7 @@ export const ArticleListElement: CmsComponent<
   const { factory } = getServerContext();
   const sdk = getSdk();
   const headersList = headers();
-  const cookiesList = cookies();
   const country = headersList.get("x-country");
-  const countryCookie = cookiesList.get("x-country");
-  console.log("country", country);
   const articles = (
     (
       await sdk.getArticleListElementItems({
@@ -64,11 +61,11 @@ export const ArticleListElement: CmsComponent<
               <Card
                 cardColor="white"
                 as="article"
-                className="flex flex-row border border-black p-5 min-h-max h-64"
+                className="flex flex-row border border-black p-5 min-h-60"
               >
                 <div className="flex flex-col">
                   <DateDisplay value={article.articleMeta?.published ?? null} />
-                  <h3 className="mb-5 text-3xl font-bold">
+                  <h3 className="mb-5 text-2xl font-bold">
                     {article?.articleTitle ?? ""}
                   </h3>
                   {article?.articleSummary && (

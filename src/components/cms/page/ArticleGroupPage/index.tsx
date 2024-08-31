@@ -12,7 +12,6 @@ import {
   CmsContentArea,
 } from "@remkoj/optimizely-cms-react/rsc";
 import { linkDataToUrl } from "@/components/shared/cms_link";
-import { Card } from "@/components/shared/Card";
 
 export const ArticleGroupPagePage: CmsComponent<
   ArticleGroupPageDataFragment
@@ -24,11 +23,11 @@ export const ArticleGroupPagePage: CmsComponent<
 
   return (
     <div className="mx-auto">
-      <div className="text-center mb-10 mx-auto">
+      <div className="text-center mb-8 mx-auto">
         <CmsEditable
           as="h1"
           cmsFieldName="articleGroupTitle"
-          className="text-[48pt] font-bold"
+          className="font-bold text-6xl"
         >
           {data.articleGroupTitle ?? ""}
         </CmsEditable>
@@ -39,7 +38,7 @@ export const ArticleGroupPagePage: CmsComponent<
           text={data.articleGroupIntro?.json}
           cmsFieldName="articleGroupIntro"
           factory={factory}
-          className="mx-auto text-3xl"
+          className="mx-auto text-2xl"
         />
       </div>
       <CmsContentArea
@@ -51,16 +50,17 @@ export const ArticleGroupPagePage: CmsComponent<
       <div className="grid grid-cols-2 gap-2">
         {articles.items.map((item) => {
           const url = item.link ? linkDataToUrl(item.link) : undefined;
+          console.log(url?.pathname);
           return (
-            <Card key={item.key} className="h-full">
+            <div key={item.key} className="h-full">
               <div className="flex flex-col gap-5 border h-full border-black p-5">
-                <h2 className="text-3xl font-bold">{item.title}</h2>
+                <h2 className="text-xl font-bold">{item.title}</h2>
                 <RichText as="div" text={item.intro} />
-                <Button url={url} className="font-bold my-auto">
+                <Button url={url!.pathname} className="font-bold my-auto">
                   Read More
                 </Button>
               </div>
-            </Card>
+            </div>
           );
         })}
       </div>
