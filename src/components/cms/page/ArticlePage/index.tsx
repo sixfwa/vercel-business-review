@@ -42,7 +42,7 @@ export const ArticlePagePage: CmsComponent<ArticlePageDataFragment> = async ({
   // <pre className="w-full overflow-x-hidden font-mono text-sm">{ JSON.stringify(data, undefined, 4) }</pre>
 
   return (
-    <div className="relative w-3/4 mx-auto">
+    <div className="relative md:w-3/4 mx-auto">
       <div className="aspect-[5/2] md:aspect-[5/1] relative w-full lg:aspect-[3/1] lg:z-[-10] mt-5">
         <CmsImage
           src={data.articleHeroImage}

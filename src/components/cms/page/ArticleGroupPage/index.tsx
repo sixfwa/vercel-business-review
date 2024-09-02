@@ -47,7 +47,7 @@ export const ArticleGroupPagePage: CmsComponent<
         className="w-full mt-[32pt]"
       />
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid md:grid-cols-2 gap-2">
         {articles.items.map((item) => {
           const url = item.link ? linkDataToUrl(item.link) : undefined;
           console.log(url?.pathname);
