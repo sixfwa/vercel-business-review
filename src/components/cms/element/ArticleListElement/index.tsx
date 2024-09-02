@@ -28,6 +28,7 @@ export const ArticleListElement: CmsComponent<
   const sdk = getSdk();
   const headersList = headers();
   const country = headersList.get("x-country");
+  console.log("browser country: ", country);
   const articles = (
     (
       await sdk.getArticleListElementItems({

@@ -111,4 +111,5 @@ ArticlePagePage.getMetaData = async (contentLink) => {
   };
 };
 
+export const dynamic = "force-static";
 export default ArticlePagePage;
