@@ -2,7 +2,6 @@
 
 import { type FunctionComponent } from "react";
 import { type Schema } from "@/gql";
-import dynamic from "next/dynamic";
 import { CmsLink } from "@/components/shared/cms_link";
 
 export type MenuItemProps = {
@@ -10,8 +9,6 @@ export type MenuItemProps = {
     | Schema.NavigationMenuBlockDataFragment
     | Schema.CardBlockDataFragment;
 } & JSX.IntrinsicElements["div"];
-
-const PromoItem = dynamic(() => import("./_promo-item"), { ssr: false });
 
 export const MenuItem: FunctionComponent<MenuItemProps> = ({
   menuList,
@@ -43,11 +40,7 @@ export const MenuItem: FunctionComponent<MenuItemProps> = ({
     );
   }
   if (menuList.__typename === "CardBlock") {
-    return (
-      <div className="col-span-2 flex justify-end">
-        <PromoItem {...menuList} />
-      </div>
-    );
+    return <div className="col-span-2 flex justify-end"></div>;
   }
 };
 
