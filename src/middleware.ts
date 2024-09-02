@@ -45,6 +45,7 @@ export async function middleware(request: NextRequest) {
   );
 
   const h = new Headers(request.headers);
+  console.log("countryCode:", countryCode);
   h.set("x-country", countryCode);
   const res = NextResponse.next({
     request: {

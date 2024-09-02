@@ -18,7 +18,7 @@ const {
   },
 });
 
-export const dynamic = "auto"; // Make sure we cache pages
+export const dynamic = "force-static"; // Make sure we cache pages
 export const dynamicParams = true; // Allow new pages to be resolved without rebuilding the site
 export const revalidate = false; // Keep the cache untill manually revalidated using the Webhook
 export const fetchCache = "default-cache"; // Cache fetch results by default
