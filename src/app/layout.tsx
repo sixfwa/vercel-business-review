@@ -28,7 +28,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={`${poppinsFont.variable}`}>
-        <main className="flex flex-col justify-between w-2/3 mx-auto mb-10 font-poppins">
+        <main className="flex flex-col justify-between w-4/5 md:w-2/3 mx-auto mb-10 font-poppins overflow-x-hidden">
           <MoseyBankHeader />
           {children}
         </main>
