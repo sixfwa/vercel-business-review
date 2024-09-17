@@ -93,8 +93,8 @@ export const ArticlePagePage: CmsComponent<ArticlePageDataFragment> = async ({
             <div className="mb-5">
               {publishedLabel}: <DateDisplay value={articleDate} />
             </div>
-            <div className="bg-gray-100">
-              <h2 className="p-3">Summary</h2>
+            <div className="bg-gray-100 -mt-5">
+              <h2 className="p-3">AI Summary</h2>
               <p className="-mt-6 p-3">{aiSummary}</p>
             </div>
             <CmsEditable
