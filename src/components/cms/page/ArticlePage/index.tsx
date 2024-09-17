@@ -13,6 +13,18 @@ import { RichText } from "@remkoj/optimizely-cms-react/components";
 import { CmsImage } from "@/components/shared/cms_image";
 import { DateDisplay } from "@/components/shared/date";
 
+import { openai } from "@ai-sdk/openai";
+import { generateText } from "ai";
+
+const aiThing = async (content: string) => {
+  const { text } = await generateText({
+    model: openai("gpt-4o-mini"),
+    prompt: `Summarise this into 100 words: ${content}`,
+  });
+
+  return text;
+};
+
 export const ArticlePagePage: CmsComponent<ArticlePageDataFragment> = async ({
   data,
   contentLink,
@@ -39,7 +51,19 @@ export const ArticlePagePage: CmsComponent<ArticlePageDataFragment> = async ({
       : data.articleAuthors?.join(", ") ?? "";
   const articleDate: string | undefined = data.metadata?.published ?? undefined;
 
-  // <pre className="w-full overflow-x-hidden font-mono text-sm">{ JSON.stringify(data, undefined, 4) }</pre>
+  const collectText = () => {
+    const raw = data.articleBody?.json.children;
+    let fullContent = "";
+
+    // @ts-ignore
+    raw.map((c) => {
+      fullContent += c.children[0].text;
+    });
+
+    return fullContent;
+  };
+
+  const aiSummary = await aiThing(collectText());
 
   return (
     <div className="relative md:w-3/4 mx-auto">
@@ -68,6 +92,10 @@ export const ArticlePagePage: CmsComponent<ArticlePageDataFragment> = async ({
             </CmsEditable>
             <div className="mb-5">
               {publishedLabel}: <DateDisplay value={articleDate} />
+            </div>
+            <div className="bg-gray-100">
+              <h2 className="p-3">Summary</h2>
+              <p className="-mt-6 p-3">{aiSummary}</p>
             </div>
             <CmsEditable
               as={RichText}
